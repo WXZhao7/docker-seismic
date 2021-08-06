@@ -1,11 +1,13 @@
-name: sync files
+name: merge branches
 on:
   push:
     branches:
       - main
+      - cached
   pull_request:
     branches:
       - main
+      - cached
 jobs:
   copy-to-branches:
     runs-on: ubuntu-latest
@@ -14,8 +16,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: copy files in main branch to redundant branch
-        uses: planetoftheweb/copy-to-branches@v1
+        uses: WXZhao7/merge-branches@main
         env:
-          key: main
-          branches: redundant
-          files: README.md
+          base: main
+          over: cached
+          build: redundant
