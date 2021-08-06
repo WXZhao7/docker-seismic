@@ -54,4 +54,5 @@
 - [ ] 非root用户的使用
 - [ ] build脚本
 - [ ] run脚本改进
+- [ ] 分支自动构建
 <!-- /* md-file-format-disable */ -->
