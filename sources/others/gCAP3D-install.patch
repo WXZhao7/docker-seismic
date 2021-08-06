@@ -1,0 +1,54 @@
+diff --git a/gCAP3D/Makefile b/New-gCAP3D/Makefile
+index 8f780a1..a71a374 100644
+--- a/gCAP3D/Makefile
++++ b/New-gCAP3D/Makefile
+@@ -1,4 +1,6 @@
++FC = gfortran -ffixed-line-length-none
+ FFLAGS = -O
++CC = gcc
+ CFLAGS = ${FFLAGS}
+ 
+ CAP  = cap3D mtdcmp radpttn
+@@ -8,13 +10,13 @@ SUBS = fft.o Complex.o radiats.o grid3d.o futterman.o sacio.o trap.o
+ all: $(CAP)
+ 
+ cap3D : %:%.o $(SUBS) cap_sub.o
+-	$(LINK.f) -o $@ $^ -L$(SACHOME)/lib -lsac -lsacio
++	$(CC) -o $@ $^ -L$(SACHOME)/lib -lsac -lsacio -lm
+ 
+ mtdcmp: mtdcmp.o
+-	$(LINK.f) -o $@ $@.o
++	$(FC) -o $@ $@.o
+ 
+ radpttn: radpttn.o radiats.o
+-	$(LINK.c) -o $@ $@.o radiats.o -lm
++	$(CC) -o $@ $@.o radiats.o -lm
+ 
+ %/mt.all: %/weight.dat
+ 	for dp in 10 15 20; do cap3D.pl -G${HOME}/data/models/Glib -H0.2 -P300000/65 -Q0.02 -T50/100 -S2/5/0 -D2/1/0.5 -C0.05/0.3/0.02/0.1 -W1 -X10 -Mcus_$$dp $*; head -1 $*/cus_$$dp.out >> $@; done
+diff --git a/gCAP3D/cap_plt.pl b/New-gCAP3D/cap_plt.pl
+index 436d61a..af660cf 100755
+--- a/gCAP3D/cap_plt.pl
++++ b/New-gCAP3D/cap_plt.pl
+@@ -4,6 +4,8 @@ sub plot {
+   local($mdl, $t1, $t2, $am, $num_com, $sec_per_inch) = @_;
+   local($nn,$tt,$plt1,$plt2,$plt3,$plt4,$i,$nam,$com1,$com2,$j,$x,$y,@aa,$rslt,@name,@aztk);
+   local $keepBad = 0;
++  system "gmtset MEASURE_UNIT inch";
++  system "gmtset PAGE_ORIENTATION portrait";
+   
+   @trace = ("1/255/255/255","2/0/0/0");       # plot data trace
+   @name = ("Pz","Pr","Sz"," Sr","Sh");
+diff --git a/gCAP3D/cap3D.pl b/New-gCAP3D/cap3D.pl
+index 6f12123..ab70cb2 100755
+--- a/gCAP3D/cap3D.pl
++++ b/New-gCAP3D/cap3D.pl
+@@ -14,7 +14,7 @@
+ 
+ # these are the only things one need to change based on the site installation
+ $home = $ENV{HOME};			# my home directory
+-require "$home/Src/cap/cap_plt.pl";	# include plot script
++require "/opt/gCAP3D/cap_plt.pl";	# include plot script
+ 
+ #================defaults======================================
+ $cmd = "cap3D";

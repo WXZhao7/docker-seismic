@@ -1,0 +1,17 @@
+### normal files
+.history/
+.idea/
+temp.*
+test.*
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+### TODO some copyrights
+sources/temp/*
+!sources/temp/pssac2.tar.gz

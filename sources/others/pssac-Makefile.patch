@@ -1,0 +1,22 @@
+diff --git a/pssac/Makefile b/New-pssac/Makefile
+index 016537b..f6756a3 100644
+--- a/pssac/Makefile
++++ b/New-pssac/Makefile
+@@ -1,7 +1,15 @@
++GMTHOME=/opt/GMT4
++GMT_INC=-I${GMTHOME}/include
++GMT_LIBS=-L${GMTHOME}/lib -lgmt -lpsl -lgmtps -lnetcdf -lm
++
++GMTHOME=/opt/GMT4
++GMT_INC=-I${GMTHOME}/include
++GMT_LIBS=-L${GMTHOME}/lib -lgmt -lpsl -lgmtps -lnetcdf -lm
++
+ CFLAGS = -O ${GMT_INC}
+ 
+ pssac: pssac.o sacio.o
+ 	$(LINK.c) -o $@ $@.o sacio.o $(GMT_LIBS)
+ 
+ clean:
+-	rm -f pssac *.o
++	rm -f pssac *.o
+\ No newline at end of file

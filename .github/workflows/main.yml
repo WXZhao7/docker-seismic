@@ -1,0 +1,21 @@
+name: sync files
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  copy-to-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: copy files in main branch to redundant branch
+        uses: planetoftheweb/copy-to-branches@v1
+        env:
+          key: main
+          branches: redundant
+          files: README.md

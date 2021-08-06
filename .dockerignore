@@ -1,0 +1,10 @@
+.history/
+.vscode/
+.idea/
+.gitignore
+.git
+
+sources/temp/*
+!sources/temp/sac-linux_x86_64.tar.gz
+!sources/temp/CPS.tgz
+!sources/temp/pssac2.tar.gz
