@@ -13,3 +13,5 @@ docker run -it --rm --name seismic \
     -v $HOME/.Xauthority:/root/.Xauthority \
     wxzhao/seismic
     # -u $(id -u):$(id -g) \
+
+# plan:
