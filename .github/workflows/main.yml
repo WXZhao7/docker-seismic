@@ -9,7 +9,7 @@ on:
       - main
       - cached
 jobs:
-  copy-to-branches:
+  build-redundant-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
