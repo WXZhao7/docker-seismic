@@ -21,3 +21,4 @@ jobs:
           base: main
           over: cached
           build: redundant
+          exclude: .github/workflows/*
