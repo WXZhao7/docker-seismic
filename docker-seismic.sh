@@ -11,7 +11,7 @@ docker run -it --rm --name seismic \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -h $USER-seismic \
     -v $HOME/.Xauthority:/root/.Xauthority \
-    wxzhao/seismic
+    seismic
     # -u $(id -u):$(id -g) \
 
 # plan:

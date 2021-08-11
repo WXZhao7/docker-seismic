@@ -19,9 +19,7 @@ LABEL maintainer="wxzhao7@gmail.com"
 #     mkdir -p /etc/fixuid && \
 #     printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 COPY ./sources /sources
-
-# RUN bash /sources/install.sh \
-#     && rm -rf /sources
+RUN bash /sources/install.sh && rm -rf /sources/temp
 WORKDIR /
 # USER $USER
 # ENTRYPOINT ["fixuid"]
