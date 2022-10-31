@@ -13,5 +13,4 @@ test.*
 *.code-workspace
 
 ### TODO some copyrights
-sources/temp/*
-!sources/temp/pssac2.tar.gz
+sources/temp
