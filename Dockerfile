@@ -2,7 +2,7 @@
 # Author: WXZhao
 # Description: This DockerFile is design for seismic enviroment building
 
-FROM ubuntu:latest
+FROM ubuntu:20.04
 LABEL maintainer="wxzhao7@gmail.com"
 # ARG USER=seismic
 # ARG GROUP=seismic
