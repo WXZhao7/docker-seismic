@@ -3,25 +3,11 @@
 # Author: WXZhao
 # Description: download and install GMT5
 
-
-# dowmload files
-if [ ! -f "/sources/temp/gshhg-gmt.tar.gz" ]; then
-    wget http://mirrors.ustc.edu.cn/gmt/gshhg-gmt-2.3.7.tar.gz -O /sources/temp/gshhg-gmt.tar.gz
-    # wget https://github.com/GenericMappingTools/gshhg-gmt/releases/download/2.3.7/gshhg-gmt-2.3.7.tar.gz -O /sources/temp/gshhg-gmt.tar.gz
-fi
-if [ ! -f "/sources/temp/dcw-gmt.tar.gz" ]; then
-    wget https://github.com/GenericMappingTools/dcw-gmt/releases/download/2.0.0/dcw-gmt-2.0.0.tar.gz -O /sources/temp/dcw-gmt.tar.gz
-fi
-
-if [ ! -f "/sources/temp/gmt6.tar.gz" ]; then
-    wget http://mirrors.ustc.edu.cn/gmt/gmt-6.2.0-src.tar.gz -O /sources/temp/gmt6.tar.gz
-    # wget https://github.com/GenericMappingTools/gmt/releases/tag/6.2.0 -O /sources/temp/gmt6.tar.gz
-fi
 # temporary remove anaconda env.
 export PATH=$(echo $PATH | awk -v RS=":" '{print $1}' | grep -iv "conda" | awk -v ORS=":" '{print $1}')
 
-apt-get -qq install -y build-essential cmake libcurl4-gnutls-dev libnetcdf-dev > /dev/null
-apt-get -qq install -y ghostscript gdal-bin libgdal-dev libglib2.0-dev libpcre3-dev libfftw3-dev liblapack-dev > /dev/null
+apt-get -qq install -y build-essential cmake libcurl4-gnutls-dev libnetcdf-dev
+apt-get -qq install -y ghostscript gdal-bin libgdal-dev libglib2.0-dev libpcre3-dev libfftw3-dev liblapack-dev
 
 mkdir -p /sources/temp/GMT6
 tar -xzf /sources/temp/gmt6.tar.gz -C /sources/temp/GMT6 --strip-components=1

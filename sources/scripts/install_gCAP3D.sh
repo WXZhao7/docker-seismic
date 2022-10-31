@@ -12,6 +12,8 @@ if [ ! -f "/sources/temp/gCAP3D.tar" ]; then
     wget http://www.eas.slu.edu/People/LZhu/downloads/gCAP3D1.2.tar  -O /sources/temp/gCAP3D.tar
 fi
 
+apt-get -y install gfortran
+
 mkdir -p /opt/gCAP3D
 tar -xf  /sources/temp/gCAP3D.tar -C /opt/gCAP3D --strip-components=1
 cd /opt/gCAP3D

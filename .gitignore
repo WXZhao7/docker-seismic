@@ -12,5 +12,9 @@ test.*
 !.vscode/extensions.json
 *.code-workspace
 
-### TODO some copyrights
-sources/temp
+### cache files
+
+### some packages without copyrights
+sources/temp/CPS.tgz
+sources/temp/sac-linux_x86_64.tar.gz
+sources/temp/IASP91.tar.gz

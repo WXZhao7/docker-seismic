@@ -4,7 +4,7 @@
 # Description: install CPS if source file existed
 
 if [ -f "/sources/temp/CPS.tgz" ]; then
-    apt-get -qq install -y libx11-dev > /dev/null
+    apt-get install -y libx11-dev
 
     mkdir -p /opt/CPS
     tar -xzf /sources/temp/CPS.tgz -C /opt/CPS --strip-components=1

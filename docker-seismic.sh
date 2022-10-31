@@ -1,17 +1,31 @@
 #!/usr/bin/env bash
-# Date: 2021-08-03 15:48:44
+# Date: 2022-10-31 20:27:40
 # Author: WXZhao
-# Description: run docker-seismic
+# Description: run the container
 
 # allow local connection
 xhost +local: > /dev/null 2>&1
 
-docker run -it --rm --name seismic \
+# computer path
+from=~/temp/ahaha
+# docker container path
+to=/home/$(id -u -n)/data
+
+function run(){
+    docker run -it --rm --name seismic \
     -e DISPLAY=$DISPLAY \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -h $USER-seismic \
+    -h docker \
     -v $HOME/.Xauthority:/root/.Xauthority \
-    seismic
-    # -u $(id -u):$(id -g) \
+    -v ${from}:${to} \
+    -u $(id -u) \
+    seismic:latest
+}
 
-# plan:
+if [ ! "$(docker ps -q -f name=^seismic$)" ]; then
+    if [ "$(docker ps -aq -f status=exited -f name=^seismic$)" ]; then
+        # cleanup
+        docker rm seismic
+    fi
+    run
+fi
