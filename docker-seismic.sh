@@ -7,9 +7,9 @@
 xhost +local: > /dev/null 2>&1
 
 # computer path
-from=~/temp/ahaha
+FROM=$HOME/Desktop
 # docker container path
-to=/home/$(id -u -n)/data
+TO=/home/$(id -u -n)/Desktop
 
 function run(){
     docker run -it --rm --name seismic \
@@ -17,7 +17,7 @@ function run(){
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -h docker \
     -v $HOME/.Xauthority:/root/.Xauthority \
-    -v ${from}:${to} \
+    -v $FROM:$TO \
     -u $(id -u) \
     seismic:latest
 }

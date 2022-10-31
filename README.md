@@ -15,10 +15,11 @@
 > 如自行指定了linux系统分区, 根据自己的文件系统规范进行合理安装即可, 鉴于docker的默认用户为root用户, 大部分软件都安装在`/opt`中, 并为了简化文件权限问题创建了id映射
 
 ## 使用方法
-0. 确定使用的硬件平台满足docker运行要求[Supported architectures](https://github.com/docker-library/official-images#architectures-other-than-amd64), 正确[安装docker](https://github.com/WXZhao7/docker-seismic/blob/main/README.md#安装Docker)
-1. 拉取仓库, `git clone`或者直接下载zip包
+0. 确定使用的硬件平台满足docker运行要求[Supported architectures](https://github.com/docker-library/official-images#architectures-other-than-amd64), 正确[安装docker](#安装Docker)
+1. 拉取仓库, `git clone git@github.com:WXZhao7/docker-seismic.git`或者直接下载[zip包](https://github.com/WXZhao7/docker-seismic/archive/refs/heads/main.zip)
 2. 自行补充部分未开源软件包到`/sources/temp`路径下
 3. 使用提供的构建脚本进行构建, 即`bash build.sh`
+4. 容器与主机的数据共享, 在`docker-seismic.sh`[自定义路径信息](#自定义数据共享)
 4. 使用提供的运行脚本运行镜像, 即`bash docker-seismic.sh`
 ## 软件列表
 
@@ -43,6 +44,44 @@
 
 官方详细教程:
 [Install Docker Engine](https://docs.docker.com/engine/install/)
+
+## 自定义数据共享
+
+* 在`docker-seismic.sh`脚本中有如下示例, 将主机的的`~/Desktop`与容器的`~/Desktop`共享, 即在容器内外皆可使用和修改这个`~/Desktop`内的内容
+
+```bash
+# computer path
+FROM=$HOME/Desktop
+# docker container path
+TO=/home/$(id -u -n)/Desktop
+
+function run(){
+    docker run -it --rm --name seismic \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -h docker \
+    -v $HOME/.Xauthority:/root/.Xauthority \
+    -v $FROM:$TO \
+    -u $(id -u) \
+    seismic:latest
+}
+```
+
+* 自定义更多的路径, 只需要增加更多的`-v`参数即可, 例如
+
+```bash
+function run(){
+    docker run -it --rm --name seismic \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -h docker \
+    -v $HOME/.Xauthority:/root/.Xauthority \
+    -v /host/path/1:/container/path/1 \
+    -v /host/path/2:/container/path/2 \
+    -u $(id -u) \
+    seismic:latest
+}
+```
 
 ## 面临的问题
 
