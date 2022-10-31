@@ -13,6 +13,7 @@ test.*
 *.code-workspace
 
 ### cache files
+Dockerfile
 
 ### some packages without copyrights
 sources/temp/CPS.tgz

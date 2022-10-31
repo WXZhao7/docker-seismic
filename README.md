@@ -12,14 +12,14 @@
 
 <del>本教程的安装遵循了[地震"学"](https://seismo-learn.org/)给出的[《文件管理》](https://seismo-learn.org/seismology101/best-practices/file-organization/)和[《软件安装》](https://seismo-learn.org/seismology101/best-practices/software-installation/), 但将所有的软件和数据放在home分区的做法仅适用于遵循[《配置操作系统》](https://seismo-learn.org/seismology101/computer/setup/)进行简单分区的用户.</del>
 
-> 如自行指定了linux系统分区, 根据自己的文件系统规范进行合理安装即可, 鉴于docker的默认用户为root用户, 大部分软件都安装在`/opt`中
+> 如自行指定了linux系统分区, 根据自己的文件系统规范进行合理安装即可, 鉴于docker的默认用户为root用户, 大部分软件都安装在`/opt`中, 并为了简化文件权限问题创建了id映射
 
 ## 使用方法
-0. 确定使用的硬件平台满足要求[Supported architectures](https://github.com/docker-library/official-images#architectures-other-than-amd64), 正确[安装docker](https://github.com/WXZhao7/docker-seismic/blob/main/README.md#安装Docker)
-1. 拉取仓库, `main`分支不包含软件源码, `redundant`分支包含软件源码可加速构建镜像
-2. 自行补充部分未开源软件包
-3. 使用提供的构建脚本进行构建
-4. 使用提供的运行脚本运行镜像
+0. 确定使用的硬件平台满足docker运行要求[Supported architectures](https://github.com/docker-library/official-images#architectures-other-than-amd64), 正确[安装docker](https://github.com/WXZhao7/docker-seismic/blob/main/README.md#安装Docker)
+1. 拉取仓库, `git clone`或者直接下载zip包
+2. 自行补充部分未开源软件包到`/sources/temp`路径下
+3. 使用提供的构建脚本进行构建, 即`bash build.sh`
+4. 使用提供的运行脚本运行镜像, 即`bash docker-seismic.sh`
 ## 软件列表
 
 | software | version | source |
@@ -51,8 +51,7 @@
 
 ## TODO列表
 
-- [ ] 非root用户的使用
-- [ ] build脚本
-- [ ] run脚本改进
-- [x] 分支自动构建
+- [x] 非root用户的使用
+- [x] build脚本
+- [x] run脚本改进
 <!-- /* md-file-format-disable */ -->
