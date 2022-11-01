@@ -1,6 +1,6 @@
 # docker-seismic
 
-> 为方便创建地震学使用环境而创建的Docker镜像
+> 为方便创建地震学使用环境而创建Dockerfile, **需自行biuld镜像**
 
 [SeisMan](https://blog.seisman.info)博客以及在其基础上创建的[地震"学"](https://seismo-learn.org/)网站为地震学相关工作提供了基本的环境搭建教程, 这无疑方便了新手入门以及环境建立. 但依旧存在着一些痛点:
 
@@ -10,17 +10,19 @@
 004. 环境的迁移和统一难以保证, 出现"这个步骤/代码能在我这里运行"的情况
 而Docker在很大程度上解决了这些问题, 可以帮助新手跳过地震学科研环境的架构过程, 也可以帮助用户快速搭建一个时候的环境.
 
-<del>本教程的安装遵循了[地震"学"](https://seismo-learn.org/)给出的[《文件管理》](https://seismo-learn.org/seismology101/best-practices/file-organization/)和[《软件安装》](https://seismo-learn.org/seismology101/best-practices/software-installation/), 但将所有的软件和数据放在home分区的做法仅适用于遵循[《配置操作系统》](https://seismo-learn.org/seismology101/computer/setup/)进行简单分区的用户.</del>
+~~本教程的安装遵循了[地震"学"](https://seismo-learn.org/)给出的[《文件管理》](https://seismo-learn.org/seismology101/best-practices/file-organization/)和[《软件安装》](https://seismo-learn.org/seismology101/best-practices/software-installation/),~~ 但将所有的软件和数据放在home分区的做法仅适用于遵循[《配置操作系统》](https://seismo-learn.org/seismology101/computer/setup/)进行简单分区的用户, 个人不建议将如此构建自己的工作环境.
 
 > 如自行指定了linux系统分区, 根据自己的文件系统规范进行合理安装即可, 鉴于docker的默认用户为root用户, 大部分软件都安装在`/opt`中, 并为了简化文件权限问题创建了id映射
 
 ## 使用方法
-0. 确定使用的硬件平台满足docker运行要求[Supported architectures](https://github.com/docker-library/official-images#architectures-other-than-amd64), 正确[安装docker](#安装Docker)
+
+0. 确定使用的硬件平台满足docker运行要求[Supported architectures](#architectures-other-than-amd64), 正确[安装docker](#安装Docker)
 1. 拉取仓库, `git clone git@github.com:WXZhao7/docker-seismic.git`或者直接下载[zip包](https://github.com/WXZhao7/docker-seismic/archive/refs/heads/main.zip)
 2. 自行补充部分未开源软件包到`/sources/temp`路径下
 3. 使用提供的构建脚本进行构建, 即`bash build.sh`
 4. 容器与主机的数据共享, 在`docker-seismic.sh`[自定义路径信息](#自定义数据共享)
 4. 使用提供的运行脚本运行镜像, 即`bash docker-seismic.sh`
+
 ## 软件列表
 
 | software | version | source |
@@ -84,6 +86,16 @@ function run(){
     seismic:latest
 }
 ```
+
+## 小技巧
+
+* 自行增加软件
+
+    直接修改内部的`bash`脚本可以实现, 但每次构建都需要从头构建. 因此在已构建的镜像基础上再增加的方案更适合长期发展和完善个人镜像
+
+* 简化运行方法
+
+    每次都使用`bash docker-seismic.sh`比较麻烦, 可以在`~/.bashrc`中添加`alias seis=/path/to/docker-seismic.sh`, 即可在终端中输入`seis`直接运行镜像
 
 ## 面临的问题
 
