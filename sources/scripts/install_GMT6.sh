@@ -3,8 +3,13 @@
 # Author: WXZhao
 # Description: download and install GMT5
 
-# temporary remove anaconda env.
-export PATH=$(echo $PATH | awk -v RS=":" '{print $1}' | grep -iv "conda" | awk -v ORS=":" '{print $1}')
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+CLEAN='\033[0m'
+NAME=${BLUE}GMT6${CLEAN}
+SUCC=${GREEN}successfully${CLEAN}
+FAIL=${RED}failed${CLEAN}
 
 apt-get -qq install -y build-essential cmake libcurl4-gnutls-dev libnetcdf-dev
 apt-get -qq install -y ghostscript gdal-bin libgdal-dev libglib2.0-dev libpcre3-dev libfftw3-dev liblapack-dev
@@ -27,9 +32,20 @@ cmake ..
 make -j
 make -j install
 
-cat << EOF >> ~/.bashrc
+
+export GMT6HOME=/opt/GMT6
+export PATH=${GMT6HOME}/bin:${PATH}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${GMT6HOME}/lib64
+
+if gmt --verison ;then
+    echo -e "${NAME} build ${SUCC}"
+    cat << EOF >> ~/.bashrc
 # GMT6
 export GMT6HOME=/opt/GMT6
 export PATH=\${GMT6HOME}/bin:\${PATH}
 export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:\${GMT6HOME}/lib64
 EOF
+    rm -rf /sources/temp/gmt6.tar.gz /sources/temp/gshhg-gmt.tar.gz /sources/temp/dcw-gmt.tar.gz /sources/temp/GMT6
+else
+    echo -e "${NAME} build ${FAIL}"
+fi
