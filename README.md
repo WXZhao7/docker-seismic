@@ -45,6 +45,8 @@
 官方详细教程:
 [Install Docker Engine](https://docs.docker.com/engine/install/)
 
+将用户加入dokcer以方便使用, 即`sudo usermod -aG docker $USER`并重启
+
 ## 自定义数据共享
 
 * 在`docker-seismic.sh`脚本中有如下示例, 将主机的的`~/Desktop`与容器的`~/Desktop`共享, 即在容器内外皆可使用和修改这个`~/Desktop`内的内容

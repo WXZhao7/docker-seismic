@@ -12,7 +12,6 @@ USER=$(id -u -n)
 cat << EOF > ./Dockerfile
 FROM ubuntu:20.04
 LABEL maintainer="wxzhao7@gmail.com"
-# the packages should download and save in the ./sources/temp
 COPY ./sources /sources
 USER root
 RUN groupadd -g $GID $USER && \
