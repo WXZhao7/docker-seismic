@@ -14,8 +14,8 @@ FROM ubuntu:20.04
 LABEL maintainer="wxzhao7@gmail.com"
 COPY ./sources /sources
 USER root
-RUN groupadd -g $GID $USER && \
-    useradd -rm -d /home/$USER -s /bin/bash -g $GID -G root -u $UID $USER && \
+RUN groupadd -g $GID $USER && \\
+    useradd -rm -d /home/$USER -s /bin/bash -g $GID -G root -u $UID $USER && \\
     bash /sources/install.sh && cp /root/.bashrc /home/$USER/.bashrc
 USER $USER
 WORKDIR /home/$USER
